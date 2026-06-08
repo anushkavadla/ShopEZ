@@ -1,17 +1,6 @@
 const User = require("../models/User");
-
-// CREATE USER
-const createUser = async (req, res) => {
-  try {
-    const user = await User.create(req.body);
-
-    res.status(201).json(user);
-  } catch (error) {
-    res.status(500).json({
-      error: error.message,
-    });
-  }
-};
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 // GET ALL USERS
 const getUsers = async (req, res) => {
@@ -26,18 +15,35 @@ const getUsers = async (req, res) => {
   }
 };
 
-// UPDATE USER
-const updateUser = async (req, res) => {
+// REGISTER USER
+const registerUser = async (req, res) => {
   try {
-    const user = await User.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      {
-        new: true,
-      }
-    );
+    const { name, email, password } = req.body;
 
-    res.json(user);
+    const userExists = await User.findOne({ email });
+
+    if (userExists) {
+      return res.status(400).json({
+        message: "User already exists",
+      });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const user = await User.create({
+      name,
+      email,
+      password: hashedPassword,
+    });
+
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    });
   } catch (error) {
     res.status(500).json({
       error: error.message,
@@ -45,13 +51,48 @@ const updateUser = async (req, res) => {
   }
 };
 
-// DELETE USER
-const deleteUser = async (req, res) => {
+// LOGIN USER
+const loginUser = async (req, res) => {
   try {
-    await User.findByIdAndDelete(req.params.id);
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({
+        message: "Invalid Email",
+      });
+    }
+
+    const isMatch = await bcrypt.compare(
+      password,
+      user.password
+    );
+
+    if (!isMatch) {
+      return res.status(400).json({
+        message: "Invalid Password",
+      });
+    }
+
+    const token = jwt.sign(
+      {
+        id: user._id,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "7d",
+      }
+    );
 
     res.json({
-      message: "User deleted successfully",
+      token,
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+      },
     });
   } catch (error) {
     res.status(500).json({
@@ -61,8 +102,7 @@ const deleteUser = async (req, res) => {
 };
 
 module.exports = {
-  createUser,
   getUsers,
-  updateUser,
-  deleteUser,
+  registerUser,
+  loginUser,
 };
