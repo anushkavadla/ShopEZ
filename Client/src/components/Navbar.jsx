@@ -21,6 +21,10 @@ function Navbar() {
 
       {" | "}
 
+      <Link to="/cart">Cart</Link>
+
+      {" | "}
+
       {userInfo ? (
         <button onClick={logoutHandler}>
           Logout
