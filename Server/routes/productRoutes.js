@@ -7,14 +7,17 @@ const {
   deleteProduct,
 } = require("../controllers/productController");
 
+const { protect } = require("../middleware/authMiddleware");
+const { admin } = require("../middleware/adminMiddleware");
+
 const router = express.Router();
 
-router.post("/", createProduct);
-
+// Public Route
 router.get("/", getProducts);
 
-router.put("/:id", updateProduct);
-
-router.delete("/:id", deleteProduct);
+// Admin Routes
+router.post("/", protect, admin, createProduct);
+router.put("/:id", protect, admin, updateProduct);
+router.delete("/:id", protect, admin, deleteProduct);
 
 module.exports = router;

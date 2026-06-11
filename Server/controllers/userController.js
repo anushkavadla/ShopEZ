@@ -60,7 +60,7 @@ const loginUser = async (req, res) => {
 
     if (!user) {
       return res.status(400).json({
-        message: "Invalid Email",
+        message: "Invalid Email or Password",
       });
     }
 
@@ -71,13 +71,14 @@ const loginUser = async (req, res) => {
 
     if (!isMatch) {
       return res.status(400).json({
-        message: "Invalid Password",
+        message: "Invalid Email or Password",
       });
     }
 
     const token = jwt.sign(
       {
         id: user._id,
+        isAdmin: user.isAdmin,
       },
       process.env.JWT_SECRET,
       {
@@ -87,12 +88,7 @@ const loginUser = async (req, res) => {
 
     res.json({
       token,
-      user: {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        isAdmin: user.isAdmin,
-      },
+      user,
     });
   } catch (error) {
     res.status(500).json({
@@ -100,7 +96,6 @@ const loginUser = async (req, res) => {
     });
   }
 };
-
 module.exports = {
   getUsers,
   registerUser,
