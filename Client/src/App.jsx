@@ -5,11 +5,11 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
   return (
     <BrowserRouter>
-
       <Navbar />
 
       <Routes>
@@ -18,8 +18,12 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         <Route path="/register" element={<Register />} />
-      </Routes>
 
+        <Route
+          path="/product/:id"
+          element={<ProductDetails />}
+        />
+      </Routes>
     </BrowserRouter>
   );
 }

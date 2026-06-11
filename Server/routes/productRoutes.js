@@ -3,6 +3,7 @@ const express = require("express");
 const {
   createProduct,
   getProducts,
+  getProductById,
   updateProduct,
   deleteProduct,
 } = require("../controllers/productController");
@@ -12,8 +13,9 @@ const { admin } = require("../middleware/adminMiddleware");
 
 const router = express.Router();
 
-// Public Route
+// Public Routes
 router.get("/", getProducts);
+router.get("/:id", getProductById);
 
 // Admin Routes
 router.post("/", protect, admin, createProduct);
