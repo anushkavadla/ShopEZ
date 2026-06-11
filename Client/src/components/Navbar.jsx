@@ -9,13 +9,17 @@ function Navbar() {
 
   const logoutHandler = () => {
     localStorage.removeItem("userInfo");
+
     navigate("/login");
   };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
-        <Link className="navbar-brand" to="/">
+        <Link
+          className="navbar-brand"
+          to="/"
+        >
           ShopEZ
         </Link>
 
@@ -32,6 +36,13 @@ function Navbar() {
             to="/cart"
           >
             Cart
+          </Link>
+
+          <Link
+            className="btn btn-outline-light me-2"
+            to="/orders"
+          >
+            Orders
           </Link>
 
           {userInfo ? (
