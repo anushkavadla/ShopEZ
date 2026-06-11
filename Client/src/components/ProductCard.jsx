@@ -2,27 +2,33 @@ import { Link } from "react-router-dom";
 
 function ProductCard({ product }) {
   return (
-    <div
-      style={{
-        border: "1px solid gray",
-        padding: "10px",
-        margin: "10px",
-        borderRadius: "10px",
-      }}
-    >
-      <h2>{product.name}</h2>
+    <div className="col-md-4 mb-4">
+      <div className="card h-100 shadow">
+        <div className="card-body">
+          <h4>{product.name}</h4>
 
-      <p>{product.description}</p>
+          <p>{product.description}</p>
 
-      <h3>₹{product.price}</h3>
+          <h5 className="text-success">
+            ₹{product.price}
+          </h5>
 
-      <p>Category: {product.category}</p>
+          <p>
+            Category: {product.category}
+          </p>
 
-      <p>Stock: {product.stock}</p>
+          <p>
+            Stock: {product.stock}
+          </p>
 
-      <Link to={`/product/${product._id}`}>
-        View Details
-      </Link>
+          <Link
+            to={`/product/${product._id}`}
+            className="btn btn-primary"
+          >
+            View Details
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

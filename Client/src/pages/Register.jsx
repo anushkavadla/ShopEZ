@@ -5,7 +5,8 @@ import axios from "axios";
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] =
+    useState("");
 
   const navigate = useNavigate();
 
@@ -22,64 +23,53 @@ function Register() {
         }
       );
 
-      alert("Registration Successful!");
-
       navigate("/login");
     } catch (error) {
-      console.log(error);
-
       alert("Registration Failed");
     }
   };
 
   return (
-    <div>
-      <h1>Register Page</h1>
+    <div className="container mt-5">
+      <div className="card p-4 shadow">
+        <h2 className="mb-3">Register</h2>
 
-      <form onSubmit={submitHandler}>
-        <div>
+        <form onSubmit={submitHandler}>
           <input
+            className="form-control mb-3"
             type="text"
-            placeholder="Enter Name"
+            placeholder="Name"
             value={name}
             onChange={(e) =>
               setName(e.target.value)
             }
           />
-        </div>
 
-        <br />
-
-        <div>
           <input
+            className="form-control mb-3"
             type="email"
-            placeholder="Enter Email"
+            placeholder="Email"
             value={email}
             onChange={(e) =>
               setEmail(e.target.value)
             }
           />
-        </div>
 
-        <br />
-
-        <div>
           <input
+            className="form-control mb-3"
             type="password"
-            placeholder="Enter Password"
+            placeholder="Password"
             value={password}
             onChange={(e) =>
               setPassword(e.target.value)
             }
           />
-        </div>
 
-        <br />
-
-        <button type="submit">
-          Register
-        </button>
-      </form>
+          <button className="btn btn-success w-100">
+            Register
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

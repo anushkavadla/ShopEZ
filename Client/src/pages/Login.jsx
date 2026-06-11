@@ -4,7 +4,8 @@ import axios from "axios";
 
 function Login() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] =
+    useState("");
 
   const navigate = useNavigate();
 
@@ -25,49 +26,43 @@ function Login() {
         JSON.stringify(data)
       );
 
-      console.log("BEFORE NAVIGATE");
-
       navigate("/");
-
-      console.log("AFTER NAVIGATE");
     } catch (error) {
-      console.log(error);
-
       alert("Login Failed");
     }
   };
 
   return (
-    <div>
-      <h1>Login Page</h1>
+    <div className="container mt-5">
+      <div className="card p-4 shadow">
+        <h2 className="mb-3">Login</h2>
 
-      <form onSubmit={submitHandler}>
-        <div>
+        <form onSubmit={submitHandler}>
           <input
+            className="form-control mb-3"
             type="email"
-            placeholder="Enter Email"
+            placeholder="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) =>
+              setEmail(e.target.value)
+            }
           />
-        </div>
 
-        <br />
-
-        <div>
           <input
+            className="form-control mb-3"
             type="password"
-            placeholder="Enter Password"
+            placeholder="Password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) =>
+              setPassword(e.target.value)
+            }
           />
-        </div>
 
-        <br />
-
-        <button type="submit">
-          Login
-        </button>
-      </form>
+          <button className="btn btn-primary w-100">
+            Login
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

@@ -22,15 +22,19 @@ function Home() {
   };
 
   return (
-    <div>
-      <h1>ShopEZ Home Page</h1>
+    <div className="container mt-4">
+      <h1 className="mb-4">
+        ShopEZ Products
+      </h1>
 
-      {products.map((product) => (
-        <ProductCard
-          key={product._id}
-          product={product}
-        />
-      ))}
+      <div className="row">
+        {products.map((product) => (
+          <ProductCard
+            key={product._id}
+            product={product}
+          />
+        ))}
+      </div>
     </div>
   );
 }

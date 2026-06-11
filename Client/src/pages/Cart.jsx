@@ -25,38 +25,73 @@ function Cart() {
     );
   };
 
+  const checkoutHandler = () => {
+    alert("Order Placed Successfully!");
+
+    localStorage.removeItem("cartItems");
+
+    setCartItems([]);
+  };
+
+  const totalPrice = cartItems.reduce(
+    (acc, item) => acc + item.price,
+    0
+  );
+
   return (
-    <div>
-      <h1>Cart Page</h1>
+    <div className="container mt-4">
+      <h1 className="mb-4">
+        Shopping Cart
+      </h1>
 
       {cartItems.length === 0 ? (
-        <h3>Cart is Empty</h3>
+        <div className="alert alert-info">
+          Cart is Empty
+        </div>
       ) : (
-        cartItems.map((item, index) => (
-          <div
-            key={index}
-            style={{
-              border: "1px solid gray",
-              padding: "10px",
-              margin: "10px",
-              borderRadius: "10px",
-            }}
-          >
-            <h2>{item.name}</h2>
-
-            <p>{item.description}</p>
-
-            <h3>₹{item.price}</h3>
-
-            <button
-              onClick={() =>
-                removeFromCartHandler(index)
-              }
+        <>
+          {cartItems.map((item, index) => (
+            <div
+              key={index}
+              className="card mb-3 shadow"
             >
-              Remove From Cart
-            </button>
+              <div className="card-body">
+                <h4>{item.name}</h4>
+
+                <p>{item.description}</p>
+
+                <h5 className="text-success">
+                  ₹{item.price}
+                </h5>
+
+                <button
+                  className="btn btn-danger"
+                  onClick={() =>
+                    removeFromCartHandler(index)
+                  }
+                >
+                  Remove From Cart
+                </button>
+              </div>
+            </div>
+          ))}
+
+          <div className="card shadow mt-4">
+            <div className="card-body">
+              <h3>
+                Total: ₹
+                {totalPrice.toLocaleString()}
+              </h3>
+
+              <button
+                className="btn btn-success mt-3"
+                onClick={checkoutHandler}
+              >
+                Proceed To Checkout
+              </button>
+            </div>
           </div>
-        ))
+        </>
       )}
     </div>
   );

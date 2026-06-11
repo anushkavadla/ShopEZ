@@ -38,24 +38,43 @@ function ProductDetails() {
   };
 
   if (!product) {
-    return <h2>Loading...</h2>;
+    return (
+      <div className="container mt-5">
+        <h2>Loading...</h2>
+      </div>
+    );
   }
 
   return (
-    <div>
-      <h1>{product.name}</h1>
+    <div className="container mt-5">
+      <div className="card shadow p-4">
+        <h1>{product.name}</h1>
 
-      <p>{product.description}</p>
+        <p className="mt-3">
+          {product.description}
+        </p>
 
-      <h2>₹{product.price}</h2>
+        <h2 className="text-success">
+          ₹{product.price}
+        </h2>
 
-      <p>Category: {product.category}</p>
+        <p>
+          <strong>Category:</strong>{" "}
+          {product.category}
+        </p>
 
-      <p>Stock: {product.stock}</p>
+        <p>
+          <strong>Stock:</strong>{" "}
+          {product.stock}
+        </p>
 
-      <button onClick={addToCartHandler}>
-        Add To Cart
-      </button>
+        <button
+          className="btn btn-primary mt-3"
+          onClick={addToCartHandler}
+        >
+          Add To Cart
+        </button>
+      </div>
     </div>
   );
 }
