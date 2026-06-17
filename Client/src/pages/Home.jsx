@@ -2,43 +2,33 @@ import { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import ProductCard from "../components/ProductCard";
-
 function Home() {
   const [products, setProducts] = useState([]);
   const [sortOption, setSortOption] =
   useState("");
   const [selectedCategory, setSelectedCategory] =
   useState("All");
-
 const [selectedBrand, setSelectedBrand] =
   useState("All");
-
   const productSectionRef = useRef(null);
-
   const location = useLocation();
-
   const keyword =
     new URLSearchParams(
       location.search
     ).get("keyword") || "";
-
   useEffect(() => {
     fetchProducts();
   }, []);
-
   const fetchProducts = async () => {
     try {
       const { data } = await axios.get(
         "http://localhost:5000/api/products"
       );
-
       setProducts(data);
     } catch (error) {
       console.log(error);
     }
-  };
-
-  
+  };  
   const filteredProducts = products.filter(
   (product) => {
     const categoryMatch =
@@ -349,31 +339,6 @@ const [selectedBrand, setSelectedBrand] =
     🔥 Today's Deals
   </h2>
 
-
-<div className="mb-4">
-  <select
-    className="form-select"
-    value={sortOption}
-    onChange={(e) =>
-      setSortOption(
-        e.target.value
-      )
-    }
-  >
-    <option value="">
-      Sort Products
-    </option>
-
-    <option value="lowToHigh">
-      Price: Low → High
-    </option>
-
-    <option value="highToLow">
-      Price: High → Low
-    </option>
-  </select>
-</div>
-
   <div className="row">
 
     <div className="col-md-4 mb-4">
@@ -483,12 +448,41 @@ const [selectedBrand, setSelectedBrand] =
         className="container mt-5"
         ref={productSectionRef}
       >
-        <h2 className="text-center fw-bold mb-4">
-          {selectedCategory === "All"
-            ? "Featured Products"
-            : selectedCategory}
-        </h2>
+        <div className="d-flex justify-content-between align-items-center mb-4">
 
+  <h2 className="fw-bold m-0">
+    {selectedCategory === "All"
+      ? "Featured Products"
+      : selectedCategory}
+  </h2>
+
+  <select
+    className="form-select"
+    style={{ width: "220px" }}
+    value={sortOption}
+    onChange={(e) =>
+      setSortOption(e.target.value)
+    }
+  >
+    <option value="">
+      Sort By
+    </option>
+
+    <option value="lowToHigh">
+      Price: Low → High
+    </option>
+
+    <option value="highToLow">
+      Price: High → Low
+    </option>
+
+    <option value="rating">
+  Rating: High → Low
+</option>
+
+  </select>
+
+</div>
         <div className="row">
           {filteredProducts.length >
           0 ? (
@@ -502,6 +496,9 @@ const [selectedBrand, setSelectedBrand] =
       return b.price - a.price;
     }
 
+    if (sortOption === "rating") {
+  return b.rating - a.rating;
+}
     return 0;
   })
   .map((product) => (
@@ -509,7 +506,8 @@ const [selectedBrand, setSelectedBrand] =
       key={product._id}
       product={product}
     />
-))          ) : (
+  ))
+          ) : (
             <div className="text-center">
               <h4>
                 No Products Found

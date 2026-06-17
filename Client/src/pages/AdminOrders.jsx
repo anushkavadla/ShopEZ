@@ -1,28 +1,22 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 function AdminOrders() {
-    const updateStatus = (
+    const updateStatus = async (
   orderId,
   newStatus
 ) => {
-  const updatedOrders =
-  orders.map((order) =>
-    order._id === orderId
-      ? {
-          ...order,
-          status: newStatus,
-        }
-      : order
-  );
+  try {
+    await axios.put(
+      `http://localhost:5000/api/orders/${orderId}`,
+      {
+        status: newStatus,
+      }
+    );
 
-  setOrders(updatedOrders);
-
-  localStorage.setItem(
-    "orders",
-    JSON.stringify(
-      updatedOrders
-    )
-  );
+    fetchOrders();
+  } catch (error) {
+    console.log(error);
+  }
 };
   const [orders, setOrders] =
     useState([]);
@@ -196,8 +190,8 @@ const fetchOrders = async () => {
   }
 >
     <option>
-      Processing
-    </option>
+  Pending
+</option>
 
     <option>
       Shipped
