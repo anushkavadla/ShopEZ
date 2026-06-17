@@ -1,10 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
 function ProductDetails() {
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const [product, setProduct] =
     useState(null);
 
@@ -49,6 +50,21 @@ function ProductDetails() {
       "Product Added To Cart!"
     );
   };
+const buyNowHandler = () => {
+  const cartItems = [
+    {
+      ...product,
+      quantity,
+    },
+  ];
+
+  localStorage.setItem(
+    "cartItems",
+    JSON.stringify(cartItems)
+  );
+
+  navigate("/cart");
+};
 
   if (!product) {
     return (
@@ -177,24 +193,19 @@ function ProductDetails() {
               </button>
 
               <button
-                className="btn btn-success btn-lg"
-                disabled={
-                  product.stock === 0
-                }
-              >
-                Buy Now
-              </button>
-
+  className="btn btn-success btn-lg"
+  onClick={buyNowHandler}
+  disabled={
+    product.stock === 0
+  }
+>
+  Buy Now
+</button>
             </div>
-
           </div>
-
         </div>
-
       </div>
-
     </div>
   );
 }
-
 export default ProductDetails;
