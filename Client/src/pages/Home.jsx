@@ -5,6 +5,8 @@ import ProductCard from "../components/ProductCard";
 
 function Home() {
   const [products, setProducts] = useState([]);
+  const [sortOption, setSortOption] =
+  useState("");
   const [selectedCategory, setSelectedCategory] =
   useState("All");
 
@@ -347,6 +349,31 @@ const [selectedBrand, setSelectedBrand] =
     🔥 Today's Deals
   </h2>
 
+
+<div className="mb-4">
+  <select
+    className="form-select"
+    value={sortOption}
+    onChange={(e) =>
+      setSortOption(
+        e.target.value
+      )
+    }
+  >
+    <option value="">
+      Sort Products
+    </option>
+
+    <option value="lowToHigh">
+      Price: Low → High
+    </option>
+
+    <option value="highToLow">
+      Price: High → Low
+    </option>
+  </select>
+</div>
+
   <div className="row">
 
     <div className="col-md-4 mb-4">
@@ -465,15 +492,24 @@ const [selectedBrand, setSelectedBrand] =
         <div className="row">
           {filteredProducts.length >
           0 ? (
-            filteredProducts.map(
-              (product) => (
-                <ProductCard
-                  key={product._id}
-                  product={product}
-                />
-              )
-            )
-          ) : (
+            [...filteredProducts]
+            .sort((a, b) => {
+    if (sortOption === "lowToHigh") {
+      return a.price - b.price;
+    }
+
+    if (sortOption === "highToLow") {
+      return b.price - a.price;
+    }
+
+    return 0;
+  })
+  .map((product) => (
+    <ProductCard
+      key={product._id}
+      product={product}
+    />
+))          ) : (
             <div className="text-center">
               <h4>
                 No Products Found

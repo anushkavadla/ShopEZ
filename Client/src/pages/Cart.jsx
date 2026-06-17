@@ -4,6 +4,11 @@ function Cart() {
   const [cartItems, setCartItems] =
     useState([]);
 
+  const [address, setAddress] =
+    useState("");
+  const [pincode, setPincode] =
+    useState("");
+
   useEffect(() => {
     const items =
       JSON.parse(
@@ -39,15 +44,17 @@ function Cart() {
     );
 
     const orderData = {
-      userId: userInfo.user._id,
+  userId: userInfo.user._id,
 
-      products: cartItems.map((item) => ({
-        productId: item._id,
-        quantity: item.quantity || 1,
-      })),
+  products: cartItems.map((item) => ({
+    productId: item._id,
+    quantity: item.quantity || 1,
+  })),
 
-      totalAmount: totalPrice,
-    };
+  totalAmount: totalPrice,
+  address,
+  pincode,
+};
 
     await axios.post(
       "http://localhost:5000/api/orders",
@@ -177,6 +184,31 @@ function Cart() {
                 {totalPrice.toLocaleString()}
               </h3>
 
+              <div className="mt-3">
+
+  <input
+    type="text"
+    className="form-control mb-2"
+    placeholder="Enter Address"
+    value={address}
+    onChange={(e) =>
+      setAddress(e.target.value)
+    }
+  />
+
+  <input
+    type="text"
+    className="form-control"
+    placeholder="Enter Pincode"
+    value={pincode}
+    onChange={(e) =>
+      setPincode(e.target.value)
+    }
+  />
+
+</div>
+
+              
               <button
                 className="btn btn-success mt-3"
                 onClick={

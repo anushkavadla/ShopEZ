@@ -28,6 +28,15 @@ const orderSchema = new mongoose.Schema(
       required: true,
     },
 
+    address: {
+  type: String,
+  required: true,
+},
+
+pincode: {
+  type: String,
+  required: true,
+},
     status: {
       type: String,
       enum: ["Pending", "Processing", "Shipped", "Delivered"],
