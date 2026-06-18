@@ -7,39 +7,20 @@ import {
   useState,
   useEffect,
 } from "react";
-
 function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
-
-  const authPages = [
-    "/login",
-    "/register",
-  ];
-
-  if (
-    authPages.includes(
-      location.pathname
-    )
-  ) {
-    return null;
-  }
-
   const [search, setSearch] =
     useState("");
-
   const [cartCount, setCartCount] =
     useState(0);
-
   const [
     wishlistCount,
     setWishlistCount,
   ] = useState(0);
-
   const userInfo = JSON.parse(
     localStorage.getItem("userInfo")
   );
-
   useEffect(() => {
     const cartItems =
       JSON.parse(
@@ -47,52 +28,54 @@ function Navbar() {
           "cartItems"
         )
       ) || [];
-
     const wishlistItems =
       JSON.parse(
         localStorage.getItem(
           "wishlistItems"
         )
       ) || [];
-
     setCartCount(
       cartItems.length
     );
-
     setWishlistCount(
       wishlistItems.length
     );
   }, []);
+  const authPages = [
+  "/login",
+  "/register",
+];
 
+if (
+  authPages.includes(
+    location.pathname
+  )
+) {
+  return null;
+}
   const logoutHandler = () => {
     localStorage.removeItem(
       "userInfo"
     );
-
     navigate("/login");
   };
-
   const searchHandler = (e) => {
     e.preventDefault();
-
     if (search.trim()) {
       navigate(
         `/?keyword=${search}`
       );
     }
   };
-
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow">
       <div className="container">
-
         <Link
           className="navbar-brand fw-bold"
           to="/"
         >
           🛒 ShopEZ
         </Link>
-
         {!userInfo?.user?.isAdmin && (
           <form
             className="d-flex mx-auto"
@@ -114,7 +97,6 @@ function Navbar() {
                 )
               }
             />
-
             <button
               className="btn btn-primary"
               type="submit"
@@ -123,16 +105,13 @@ function Navbar() {
             </button>
           </form>
         )}
-
         <div>
-
           <Link
             className="btn btn-outline-light me-2"
             to="/"
           >
             🏠 Home
           </Link>
-
           {!userInfo?.user?.isAdmin && (
             <>
               <Link
@@ -140,7 +119,6 @@ function Navbar() {
                 to="/wishlist"
               >
                 ❤️ Wishlist
-
                 {wishlistCount >
                   0 && (
                   <span
@@ -152,13 +130,11 @@ function Navbar() {
                   </span>
                 )}
               </Link>
-
               <Link
                 className="btn btn-outline-light me-2 position-relative"
                 to="/cart"
               >
                 🛒 Cart
-
                 {cartCount >
                   0 && (
                   <span
@@ -168,7 +144,6 @@ function Navbar() {
                   </span>
                 )}
               </Link>
-
               <Link
                 className="btn btn-outline-light me-2"
                 to="/orders"
@@ -177,7 +152,6 @@ function Navbar() {
               </Link>
             </>
           )}
-
           {userInfo?.user?.isAdmin && (
             <>
               <Link
@@ -186,7 +160,6 @@ function Navbar() {
               >
                 ⚙️ Admin
               </Link>
-
               <Link
                 className="btn btn-info me-2"
                 to="/admin/orders"
@@ -195,7 +168,6 @@ function Navbar() {
               </Link>
             </>
           )}
-
           {userInfo ? (
             <button
               className="btn btn-danger"
@@ -213,7 +185,6 @@ function Navbar() {
               >
                 🔑 Login
               </Link>
-
               <Link
                 className="btn btn-primary"
                 to="/register"
@@ -222,12 +193,9 @@ function Navbar() {
               </Link>
             </>
           )}
-
         </div>
-
       </div>
     </nav>
   );
 }
-
 export default Navbar;
