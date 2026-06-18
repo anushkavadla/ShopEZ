@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const path = require("path");
 
 const connectDB = require("./config/db");
 
@@ -23,8 +24,10 @@ app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/cart", cartRoutes);
 
-app.get("/", (req, res) => {
-  res.send("ShopEZ API Running...");
+app.use(express.static(path.join(__dirname, "../Client/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../Client/dist/index.html"));
 });
 
 const PORT = process.env.PORT || 5000;
