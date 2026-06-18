@@ -46,8 +46,7 @@ function AdminDashboard() {
     try {
       const { data } =
         await axios.get(
-          "http://localhost:5000/api/products"
-        );
+   `${import.meta.env.VITE_API_URL}/api/products`    );
 
       setProducts(data);
     } catch (error) {
@@ -70,7 +69,7 @@ function AdminDashboard() {
 
       if (editProductId) {
         await axios.put(
-          `http://localhost:5000/api/products/${editProductId}`,
+  `${import.meta.env.VITE_API_URL}/api/products/${editProductId}`,
           {
             name,
             description,
@@ -91,7 +90,8 @@ function AdminDashboard() {
         );
       } else {
         await axios.post(
-          "http://localhost:5000/api/products",
+  `${import.meta.env.VITE_API_URL}/api/products`,
+
           {
             name,
             description,
@@ -159,8 +159,8 @@ function AdminDashboard() {
             )
           );
 
-        await axios.delete(
-          `http://localhost:5000/api/products/${productId}`,
+      await axios.delete(
+  `${import.meta.env.VITE_API_URL}/api/products/${productId}`,
           {
             headers: {
               Authorization: `Bearer ${userInfo.token}`,

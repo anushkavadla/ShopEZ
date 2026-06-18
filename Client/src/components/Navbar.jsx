@@ -10,6 +10,12 @@ import {
 function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
+
+
+  const authPages = [
+    "/login",
+    "/register",
+  ];
   const [search, setSearch] =
     useState("");
   const [cartCount, setCartCount] =
@@ -28,6 +34,7 @@ function Navbar() {
           "cartItems"
         )
       ) || [];
+
     const wishlistItems =
       JSON.parse(
         localStorage.getItem(
@@ -41,18 +48,6 @@ function Navbar() {
       wishlistItems.length
     );
   }, []);
-  const authPages = [
-  "/login",
-  "/register",
-];
-
-if (
-  authPages.includes(
-    location.pathname
-  )
-) {
-  return null;
-}
   const logoutHandler = () => {
     localStorage.removeItem(
       "userInfo"

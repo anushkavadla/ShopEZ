@@ -348,14 +348,15 @@ const [selectedBrand, setSelectedBrand] =
         </div>
 
         <img
-          src="/images/iphone17pro.jpg"
-          alt="iPhone"
-          className="card-img-top"
-          style={{
-            height: "220px",
-            objectFit: "contain",
-          }}
-        />
+  src="/images/iphone17pro.jpg"
+  alt="iPhone"
+  className="card-img-top"
+  style={{
+    height: "220px",
+    width: "100%",
+    objectFit: "contain",
+  }}
+/>
 
         <div className="card-body text-center">
           <h4>iPhone 17 Pro</h4>
@@ -381,14 +382,15 @@ const [selectedBrand, setSelectedBrand] =
         </div>
 
         <img
-          src="/images/s24.jpg"
-          alt="Samsung"
-          className="card-img-top"
-          style={{
-            height: "220px",
-            objectFit: "contain",
-          }}
-        />
+  src="/images/s24.jpg"
+  alt="Samsung"
+  className="card-img-top"
+  style={{
+    height: "220px",
+    width: "100%",
+    objectFit: "contain",
+  }}
+/>
 
         <div className="card-body text-center">
           <h4>Samsung S26</h4>
