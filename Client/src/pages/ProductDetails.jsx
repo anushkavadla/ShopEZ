@@ -98,7 +98,7 @@ const buyNowHandler = () => {
           <div className="col-md-6">
 
             <h1 className="fw-bold">
-              {product.name}
+  TEST ANUSHKA
             </h1>
 
             <h2 className="text-success mt-3">
