@@ -22,7 +22,7 @@ const [selectedBrand, setSelectedBrand] =
   const fetchProducts = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:5000/api/products"
+        "/api/products"
       );
       setProducts(data);
     } catch (error) {
