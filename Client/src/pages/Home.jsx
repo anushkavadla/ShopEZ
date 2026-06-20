@@ -449,7 +449,6 @@ const [selectedBrand, setSelectedBrand] =
 
   </div>
 </div>
-
       {/* PRODUCTS */}
       <div
         className="container mt-5"
@@ -457,11 +456,17 @@ const [selectedBrand, setSelectedBrand] =
       >
         <div className="d-flex justify-content-between align-items-center mb-4">
 
+<div className="d-flex flex-column">
   <h2 className="fw-bold m-0">
     {selectedCategory === "All"
       ? "Featured Products"
       : selectedCategory}
   </h2>
+
+  <small className="text-muted">
+    Showing {filteredProducts.length} Products
+  </small>
+</div>
 
   <select
     className="form-select"
@@ -471,6 +476,7 @@ const [selectedBrand, setSelectedBrand] =
       setSortOption(e.target.value)
     }
   >
+    
     <option value="">
       Sort By
     </option>
