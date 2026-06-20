@@ -66,10 +66,10 @@ function ProductCard({ product }) {
           </h3>
 
           <div className="mb-2">
-  ⭐⭐⭐⭐⭐
-  <small className="text-muted ms-2">
-    (4.8)
-  </small>
+{"⭐".repeat(Math.round(product.rating))}
+ <small className="text-muted ms-2">
+  ({product.rating})
+</small>
 </div>
           <p>
             Stock Available:{" "}
