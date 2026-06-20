@@ -62,7 +62,7 @@ function ProductCard({ product }) {
           </p>
 
           <h3 className="text-success fw-bold">
-            ₹{product.price}
+            ₹{Number(product.price).toLocaleString("en-IN")}
           </h3>
 
           <div className="mb-2">
