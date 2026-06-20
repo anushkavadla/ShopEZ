@@ -4,6 +4,8 @@ import axios from "axios";
 import ProductCard from "../components/ProductCard";
 function Home() {
   const [products, setProducts] = useState([]);
+const [loading, setLoading] = useState(true);
+
   const [sortOption, setSortOption] =
   useState("");
   const [selectedCategory, setSelectedCategory] =
@@ -20,15 +22,18 @@ const [selectedBrand, setSelectedBrand] =
     fetchProducts();
   }, []);
   const fetchProducts = async () => {
-    try {
-      const { data } = await axios.get(
-        "/api/products"
-      );
-      setProducts(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };  
+  try {
+    setLoading(true);
+
+    const res = await axios.get(API_URL);
+
+    setProducts(res.data);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoading(false);
+  }
+};  
   const filteredProducts = products.filter(
   (product) => {
     const categoryMatch =
@@ -486,36 +491,40 @@ const [selectedBrand, setSelectedBrand] =
 
 </div>
         <div className="row">
-          {filteredProducts.length >
-          0 ? (
-            [...filteredProducts]
-            .sort((a, b) => {
-    if (sortOption === "lowToHigh") {
-      return a.price - b.price;
-    }
+   
+{loading ? (
+  <div className="text-center my-5">
+    <div className="spinner-border text-primary" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </div>
+    <p className="mt-2">Loading products...</p>
+  </div>
+) : filteredProducts.length > 0 ? (
+  [...filteredProducts]
+    .sort((a, b) => {
+      if (sortOption === "lowToHigh") {
+        return a.price - b.price;
+      }
+      if (sortOption === "highToLow") {
+        return b.price - a.price;
+      }
+      if (sortOption === "rating") {
+        return b.rating - a.rating;
+      }
+      return 0;
+    })
+    .map((product) => (
+      <ProductCard
+        key={product._id}
+        product={product}
+      />
+    ))
+) : (
+  <div className="text-center">
+    <h4>No Products Found</h4>
+  </div>
+)}
 
-    if (sortOption === "highToLow") {
-      return b.price - a.price;
-    }
-
-    if (sortOption === "rating") {
-  return b.rating - a.rating;
-}
-    return 0;
-  })
-  .map((product) => (
-    <ProductCard
-      key={product._id}
-      product={product}
-    />
-  ))
-          ) : (
-            <div className="text-center">
-              <h4>
-                No Products Found
-              </h4>
-            </div>
-          )}
         </div>
       </div>
 
