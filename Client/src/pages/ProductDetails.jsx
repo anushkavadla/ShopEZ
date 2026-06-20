@@ -19,7 +19,7 @@ function ProductDetails() {
   const fetchProduct = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/api/products/${id}`
+        `/api/products/${id}`
       );
 
       setProduct(data);
@@ -102,8 +102,8 @@ const buyNowHandler = () => {
             </h1>
 
             <h2 className="text-success mt-3">
-              ₹{product.price}
-            </h2>
+  ₹{Number(product.price).toLocaleString("en-IN")}
+</h2>
 
             <div className="mt-2 mb-3">
               ⭐⭐⭐⭐⭐
