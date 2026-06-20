@@ -32,6 +32,7 @@ const productSchema = new mongoose.Schema(
   default: 4.5,
 },
 
+
     image: {
       type: String,
       default: "",

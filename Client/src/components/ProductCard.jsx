@@ -66,9 +66,9 @@ function ProductCard({ product }) {
           </h3>
 
           <div className="mb-2">
-{"⭐".repeat(Math.round(product.rating))}
- <small className="text-muted ms-2">
-  ({product.rating})
+⭐⭐⭐⭐
+<small className="text-muted ms-2">
+  (3.9)
 </small>
 </div>
           <p>
