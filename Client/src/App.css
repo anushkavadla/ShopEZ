@@ -1,9 +1,10 @@
 .hero-section {
   background: linear-gradient(
-    135deg,
-    #0f172a,
-    #1e293b
-  );
+  135deg,
+  #0f172a,
+  #1e3a8a,
+  #312e81
+);
 
   color: white;
   padding: 100px 20px;
@@ -22,12 +23,17 @@
 }
 
 .product-card {
-  transition: 0.3s;
-  border-radius: 15px;
+  border-radius: 20px;
+  border: none;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
 }
 
 .product-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-12px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
 }
 
 .footer {
@@ -38,6 +44,7 @@
 }
 .product-card img {
   height: 250px;
+  width: 100%;
   object-fit: cover;
 }
 
@@ -47,4 +54,16 @@
 
 .product-card:hover {
   transform: translateY(-10px);
+}
+
+body {
+  background: #f8fafc;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 700;
 }

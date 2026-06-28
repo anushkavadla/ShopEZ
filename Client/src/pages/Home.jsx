@@ -24,8 +24,7 @@ const [selectedBrand, setSelectedBrand] =
   const fetchProducts = async () => {
   try {
     setLoading(true);
-
-    const res = await axios.get(API_URL);
+const res = await axios.get("http://localhost:5000/api/products");
 
     setProducts(res.data);
   } catch (error) {
@@ -80,7 +79,10 @@ const [selectedBrand, setSelectedBrand] =
     });
   };
 
-  return (
+console.log("Products:", products);
+console.log("Filtered:", filteredProducts);
+  
+return (
     <div>
       {/* HERO SECTION */}
       <div

@@ -63,8 +63,13 @@ function Navbar() {
     }
   };
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow">
-      <div className="container">
+<nav
+  className="navbar navbar-expand-lg navbar-dark shadow"
+  style={{
+    background: "#0f172a",
+    padding: "15px 0",
+  }}
+>      <div className="container">
         <Link
           className="navbar-brand fw-bold"
           to="/"

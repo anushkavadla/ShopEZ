@@ -73,7 +73,7 @@ const buyNowHandler = () => {
       </div>
     );
   }
-
+console.log(product);
   return (
     <div className="container mt-5">
 
