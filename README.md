@@ -1,7 +1,12 @@
 # ShopEZ
 
-ShopEZ is a full-stack e-commerce web application built using the MERN stack. The project provides user authentication, role-based authorization, product management, cart management, and order management functionalities.
+### Full Stack MERN E-Commerce Web Application
 
+[![Live Demo](https://img.shields.io/badge/Live-Demo-green?style=for-the-badge)](https://vip-c2-shopez-q0x5.onrender.com)
+
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge)](https://github.com/anushkavadla/ShopEZ)
+
+ShopEZ is a full-stack MERN e-commerce web application that provides user authentication, product management, shopping cart, wishlist, order management, and an admin dashboard.
 ## Tech Stack
 
 ### Frontend
