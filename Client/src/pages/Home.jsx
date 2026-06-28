@@ -24,20 +24,19 @@ const [selectedBrand, setSelectedBrand] =
   const fetchProducts = async () => {
   try {
     setLoading(true);
-const res = await fetch("/api/products");
 
-const data = await res.json();
+    const res = await fetch("/api/products");
+    const data = await res.json();
 
-console.log(data);
+    console.log(data);
 
-setProducts(data);
-    setProducts(res.data);
+    setProducts(data);
   } catch (error) {
     console.error(error);
   } finally {
     setLoading(false);
   }
-};  
+};
   const filteredProducts = products.filter(
   (product) => {
     const categoryMatch =
